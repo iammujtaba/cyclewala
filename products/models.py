@@ -5,21 +5,30 @@ from utils.base_model import BaseModel
 # Create your models here.
 
 class Category(models.Model):
-    name = models.CharField(max_length=25)
+    name = models.CharField(max_length=25, unique=True)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
     description = models.TextField(max_length=200)
 
-class SubCategory(models.Model):
-    name = models.CharField(max_length=25)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+
+    def __str__(self):
+        return self.name
+
 
 class Product(models.Model):
     product_id = models.CharField(max_length=12, unique=True)
     name = models.CharField(max_length=256)
     description = models.TextField(blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     manufacturer = models.CharField(max_length=256)
     country_of_origin = models.CharField(max_length=20)
+
+
+    def __str__(self):
+        return self.name
+
 
 class ProductVariant(models.Model):
     variant_id = models.CharField(max_length=12, unique=True)
