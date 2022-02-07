@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% block title %}
+Login | Supreme Cycle
+{% endblock title %}
+
+{% block css %}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Poppins', sans-serif
+}
+
+body {
+background: #ecf0f3
+}
+
+.wrapper {
+max-width: 350px;
+min-height: 500px;
+margin: 80px auto;
+padding: 40px 30px 30px 30px;
+background-color: #ecf0f3;
+border-radius: 15px;
+box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff
+}
+
+.logo {
+width: 80px;
+margin: auto
+}
+
+.logo img {
+width: 100%;
+height: 80px;
+object-fit: cover;
+border-radius: 50%;
+box-shadow: 0px 0px 3px #5f5f5f, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #a7aaa7, -8px -8px 15px #fff
+}
+
+.wrapper .name {
+font-weight: 600;
+font-size: 1.4rem;
+letter-spacing: 1.3px;
+color: #555;
+padding-left: 10%;
+}
+
+.wrapper .form-field input  {
+width: 100%;
+display: block;
+border: none;
+outline: none;
+background: none;
+font-size: 1.2rem;
+color: #666;
+padding: 10px 15px 10px 10px
+}
+
+#id_country_code{
+    width: 100%;
+    display: block;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.2rem;
+    color: #666;
+    padding: 10px 15px 10px 10px;
+}
+.wrapper .form-field {
+padding-left: 10px;
+margin-bottom: 20px;
+border-radius: 20px;
+box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff
+}
+
+.wrapper .form-field .fas {
+color: #555
+}
+
+.wrapper .btn {
+box-shadow: none;
+width: 100%;
+height: 40px;
+background-color: #03A9F4;
+color: #fff;
+border-radius: 25px;
+box-shadow: 3px 3px 3px #b1b1b1, -3px -3px 3px #fff;
+letter-spacing: 1.3px
+}
+
+.wrapper .btn:hover {
+background-color: #039BE5
+}
+
+.wrapper a {
+text-decoration: none;
+font-size: 0.8rem;
+color: #03A9F4
+}
+
+.wrapper a:hover {
+color: #039BE5
+}
+
+@media(max-width: 380px) {
+.wrapper {
+margin: 30px 20px;
+padding: 40px 15px 15px 15px
+}
+}
+{% endblock css %}
+{% block body %}
+{% load crispy_forms_tags %}
+
+<div class="wrapper">
+    <div class="logo">
+        <a href="/">
+            <img src="https://raw.githubusercontent.com/iammujtaba/supreme/master/static/supreme_logo.png?token=GHSAT0AAAAAABPQARJT7PZNWG3EL57VILW6YQKQF3Q" alt="">
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-md-6 text-left mt-4 name"> Login </div>
+        <div class="col-md-6 text-center mt-4">
+            <a href="#" id="phone-login">Login with phone?</a>
+            <a href="#" id="email-login">Login with Email?</a>
+            </div>
+    </div>
+    <form class="p-3 mt-1" method="POST">
+        {% csrf_token %}
+        <div id="email-form">
+            <div class="form-field d-flex align-items-center"> 
+                <span class="far fa-user"></span> 
+                {{ form.email|as_crispy_field }}
+            </div>
+            <div class="form-field d-flex align-items-center">
+                <span class="fas fa-key"></span>
+                {{ form.password|as_crispy_field }}
+            </div>
+                <button class="btn mt-3">Login</button>
+        </div>
+        <div id="phone-form">
+            <div class="form-field d-flex align-items-center"> 
+                <span class="far fa-user"></span> 
+                {{ form.country_code|as_crispy_field }}
+            </div>
+            <div class="form-field d-flex align-items-center">
+                <span class="fas fa-key"></span>
+                {{ form.phone_number|as_crispy_field }}
+            </div>
+                <button class="btn mt-3">Login with OTP</button>
+        </div>
+    </form>
+    <div class="mt-6 text-center fs-6">
+        <a href="#">Forget password?</a>
+    </div>
+    <div class="text-center fs-6">
+        <a href="#">Don't have account? </a>
+    </div>
+
+</div>
+
+{% endblock body %}
+
+{% block javascript %}
+$('#id_country_code').val("+91")
+$(window).on("load", function() {
+  $("#id_phone_number").val("");
+  $("#id_email").val("");
+  $("#id_password").val("");
+  $("#phone-form").hide();
+  $("#email-login").hide();
+
+});
+$("#email-login").click(function(e){
+  e.preventDefault();
+  $("#phone-form").hide();
+  $("#email-form").show();
+  $("#id_phone_number").val("");
+  $("#phone-login").show();
+  $("#email-login").hide();
+});
+$("#phone-login").click(function(e) {
+    e.preventDefault();
+    $("#email-form").hide();
+    $("#phone-form").show();
+    $("#phone-login").hide();
+    $("#email-login").show();
+    $("#id_email").val("");
+    $("#id_password").val("");
+  });
+{% endblock javascript %}

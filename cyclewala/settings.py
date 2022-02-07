@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INTERNAL_APPS = ["products","authservice"]  # APPs for CycleWala
+EXTERNAL_APPS = ["crispy_forms"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-] + INTERNAL_APPS
+] + INTERNAL_APPS + EXTERNAL_APPS
 
 
 # Extra Settings here....
@@ -58,10 +59,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'cyclewala.urls'
 
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_PATH],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,3 +128,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
