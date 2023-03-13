@@ -32,6 +32,7 @@ AUTH_USER_MODEL = 'authservice.User' # Main authservice model
 # Application definition
 EXTERNAL_APPS = [
     "rest_framework",
+    "crispy_forms",
 ]
 INTERNAL_APPS = [
     "authservice",
@@ -57,10 +58,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'cyclewala.urls'
 
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_PATH],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,3 +130,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap', 'uni_form', 'bootstrap4', 'foundation-5')
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -1,0 +1,11 @@
+{% extends "base/base.html" %}
+{% block title %}HomePage|SCRC{% endblock %}
+{% block body %}
+    <h1> HomePage | SCRC</h1>
+    {% if request.user.is_authenticated %}
+        <h2> Welcome {{request.user.get_full_name }} </h2>
+    {% else %}
+        <h2> Welcome Guest </h2>
+    {% endif %}
+{% endblock body%}
+
