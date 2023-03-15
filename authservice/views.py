@@ -13,6 +13,10 @@ def home(request):
 
 
 def register(request):
+    if request.user:
+        print("Got user in session: ", request.user)
+        request.session.flush()
+
     form = UserRegistrationForm()
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
@@ -47,7 +51,7 @@ def user_login(request):
  
             if not user:    
                 messages.error(request, "Invalid credentials.")
-                return HttpResponseRedirect(reverse("authservice:login"))
+                return HttpResponseRedirect(reverse("authservice:user_login"))
 
             login(request,user)
             messages.success(request, "Login successful.")
