@@ -25,10 +25,16 @@
   <body>
 
   <style>
+    body{
+      background-color: #f1f3f6;
+    }
+    .resizable-text{
+      font-size: 0.9rem;
+    }
   /* To display drop down on hover */
     .dropdown:hover .dropdown-menu {
       display: block;
-      margin-top: 0; // remove the gap so it doesn't close
+      margin-top: 0;
       }
       
       /* Code used for custom colors */
@@ -39,7 +45,7 @@
         background-color:MediumSeaGreen;
       }
       .btn-custom{
-        background:#e4ddfb;
+        background:#f1f3f6;
       }
       .bg-pink{
         background:#6832c0 !important;
@@ -124,7 +130,14 @@
         placement : 'top',
         html : true,
         title : 'Hi, {{ user.get_full_name }}  <a href="#" class="close" data-dismiss="alert">&times;</a>',
-        content : '{% if user.is_authenticated %} <a href="/login" >Logout</a> {% else %} <a href={% url "authservice:user_login" %} class="btn submit-btn btn-primary" type="submit">Login</a> {% endif %}'
+        content : `{% if user.is_authenticated %} 
+                  <a href = "" class="bg-lime" >Account</a> \n
+                  <a href="" class="bg-lime" >Orders</a>
+                  <a href="" class="bg-lime" >Saved Items</a>
+                  <a href="" class="bg-lime" >Addresses</a>
+                  <a href={% url "authservice:user_logout" %} class="bg-lime" >Logout</a>
+                  {% else %} 
+                  <a href={% url "authservice:user_login" %} class="bg-lime" type="submit">Login</a> {% endif %}`
     });
   });
 

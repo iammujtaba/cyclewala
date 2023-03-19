@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+
+{% block title %}MyAccount|SCRC {% endblock %}
+
+{% block body %}
+
+{% if not user.is_authenticated %}
+    <center>Login to view profile.</center>
+{% else %}
+    <center>your profile goes here.</center>
+
+{% endif %}
+
+{% endblock body %}

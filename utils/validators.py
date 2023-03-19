@@ -41,3 +41,8 @@ def validate_phone_number(value,soft_validate=False):
     if not PHONE_REGEX.match(value):
         raise ValidationError('Incorrect phone number')    
     
+
+
+def validate_constant_choices(value,choices): #format of choices is [(1,"one"),(2,"two")]
+    if value not in [choice[0] for choice in choices]:
+        raise ValidationError(f"{value} is not a valid choice")

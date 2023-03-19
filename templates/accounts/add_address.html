@@ -1,0 +1,73 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+AddNewAddress|Supreme Cycle
+{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="container ">
+    <div class="row justify-content-md-center">
+        <div class="mt-4"><h2>Add New Address</h2></div>
+    </div>
+    <form class="mx-auto col-10 col-md-8 col-lg-6 " method="post">
+        {% csrf_token %}
+
+        <div class="form-group row">
+            <div class="col-6">
+              <!-- <input type="text" class="form-control" id="firstName" aria-describedby="firstName" placeholder="First Name"> -->
+              {{ form.flat|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.near_by_landmark|as_crispy_field }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form.street_address|as_crispy_field }}
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                {{ form.city|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                {{ form.state|as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-7">
+                {{ form.country|as_crispy_field }}
+            </div>
+            <div class="col-md-5">
+                {{ form.postal_code|as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form.email|as_crispy_field }}
+        </div>
+        <div class="form-group input-group">
+            <div class="row">
+            <!-- <div class="input-group-prepend col-2 col-md-3 mx-auto">
+                <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+            </div> -->
+            <div class="col-md-4">
+                {{ form.country_code|as_crispy_field }}
+            </div>
+            <div class="col-md-8">
+                {{ form.phone_number|as_crispy_field }}
+            </div>
+        </div>
+        </div>
+        <div class="form-group">
+            {{ form.is_default_address|as_crispy_field }}
+        </div>        
+        <div class="form-group">
+            <button class="btn submit-btn bg-lime" type="submit">Add Address</button>
+        </div>
+
+      </form>
+</div>
+
+{% endblock body %}

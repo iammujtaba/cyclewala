@@ -13,9 +13,11 @@ def home(request):
 
 
 def register(request):
-    if request.user:
-        print("Got user in session: ", request.user)
-        request.session.flush()
+    if request.user.is_authenticated:
+        request.session.set_expiry(0)
+        messages.error(request, "you've been logged out from current account.")
+        logout(request)
+        return HttpResponseRedirect(reverse("authservice:register"))
 
     form = UserRegistrationForm()
     if request.method == "POST":
@@ -41,6 +43,10 @@ def register(request):
     return render(request, 'authservice/register.html', {"form": form})
 
 def user_login(request):
+    if request.user.is_authenticated:
+        messages.error(request, "You are already logged in.")
+        return HttpResponseRedirect(reverse("authservice:home"))
+
     form = LoginForm()
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -58,3 +64,13 @@ def user_login(request):
             return HttpResponseRedirect(reverse("authservice:home"))
 
     return render(request, 'authservice/login.html', {"form": form})
+
+
+def user_logout(request):
+    if request.user.is_authenticated:
+        logout(request)
+        messages.success(request, "Logout successful.")
+        return HttpResponseRedirect(reverse("authservice:home"))
+    
+    messages.error(request, "You are not logged in.")
+    return HttpResponseRedirect(reverse("authservice:home"))

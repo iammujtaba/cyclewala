@@ -14,10 +14,8 @@ Registration | Supreme Cycle
     </div>
     <form class="mx-auto col-10 col-md-8 col-lg-6 " method="post">
         {% csrf_token %}
-
         <div class="form-group row">
             <div class="col-6">
-              <!-- <input type="text" class="form-control" id="firstName" aria-describedby="firstName" placeholder="First Name"> -->
               {{ form.email|as_crispy_field }}
             </div>
             <div class="col-6">
