@@ -36,6 +36,9 @@ EXTERNAL_APPS = [
 ]
 INTERNAL_APPS = [
     "authservice",
+    "home",
+    "accounts",
+
 ]
 INSTALLED_APPS = [
     'django.contrib.admin',
